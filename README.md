@@ -1,61 +1,68 @@
-# 3D-R2N2-PyTorch
-This is a pytorch version of 3D-R2N2. Original repo: https://github.com/chrischoy/3D-R2N2
+# Volume Estimation through Computer Vision aided 3D reconstruction
+
+- This pipeline performs the volume estimation in 3 steps: segmentation ⇒ 3D reconstruction ⇒ volume estimation
+    - Segmentation: [YOLOv5](https://github.com/ultralytics/yolov5)
+    - 3D reconstruction: [3DR2-N2 Official Version](https://github.com/chrischoy/3D-R2N2) and [3DR2-N2 PyTorch Version](https://github.com/heromanba/3D-R2N2-PyTorch)
+    - Volume Calculation: (https://github.com/mikedh/trimesh)[Trimesh]
 
 ## Installation
-The repo was tested with python3.6, cuda 10.1, pytorch 1.4.0. You can follow the instruction below to install the virtual environment.
+You can follow the instruction below to install the virtual environment.
 
-- Get the source code.
+- Clone this repository
 ```bash
-git clone https://github.com/heromanba/3D-R2N2-PyTorch.git
+git clone https://github.com/kalebmes/volume_estimation.git
 ```
 
-- Install anaconda(https://docs.anaconda.com/anaconda/install/).
+- Create virtual environment and install required packages. Example is given below using `conda`
 
-- Create virtual environment and install required packages.
 ```bash
-cd 3D-R2N2-PyTorch
-conda create -n 3D-R2N2 python=3.6
-conda activate 3D-R2N2
+cd volume_estimation
+conda create -n 3D-volume-estimator
+conda activate 3D-volume-estimator
 pip install -r requirements.txt
 ```
+## Segmentation
 
-## Demo
-- Download pretrained model(ResidualGRUNet), and put ```checkpoint.pth``` under ```output/ResidualGRUNet/default_model```.
+### Running YOLOv5 instance segmentation
+- First please download the pretrained model `obj_seg.pt` from this Link and store it under `yolov5_det/` directory. For more information, please visit the official README.md for yolov5, under the `yolov5_det/` directory
+
+- Navigate to the `yolov5_det/` directory
+
+```bash
+cd yolov5_det
+```
+
+- Then run the instance segmentation script using the given command. Be sure to change the `dataset_directory/` to the actual directory of the objects, and `obj_seg_directory` to the directory of the downloaded `obj_seg.pt` model
+
+```bash
+python segment/predict.py --source dataset_directory/ --weights obj_seg_directory/ --save-txt
+```
+
+- the results are stored under the `runs/` directory. Please take a note of the output path and proceed to the cropping stage.
+
+### Cropping the desired objects
+
+- Run the following python file. Please make sure to specify the original directory of the objects, which was denoted as `dataset_directory/` previously, and the output of the segmented objects directory and the desired save path
+
+```bash
+python crop_image_yolov5_bb.py 
+```
+
+
+## 3D Reconstruction
+- Please download pretrained model(ResidualGRUNet), and put ```checkpoint.pth``` under ```output/ResidualGRUNet/default_model```.
 
     Google drive link(https://drive.google.com/open?id=1LtNhuUQdAeAyIUiuCavofBpjw26Ag6DP)
 
-    Baidu pan link(链接: https://pan.baidu.com/s/12YK4mnQNx9xdCjzV7zx7GA 提取码: 66nf)
+- Run the following command. Please make sure to specify the folder of the cropped images, and the output directory of the saved projections
 
-- Run
-The predicted object will be saved to ```prediction.obj```.
 ```bash
-python demo.py
+python 3D_recon_script.py
 ```
 
-## Train
-### Prepare dataset
-- Use the same dataset as mentioned in the original repo.
+## Volume Calculation
+- Run the following command, which generates a .csv file of predicted volumes along with their accuracies using Trimesh module
 
-    ShapeNet rendered images http://cvgl.stanford.edu/data2/ShapeNetRendering.tgz
-
-    ShapeNet voxelized models http://cvgl.stanford.edu/data2/ShapeNetVox32.tgz
-
-- Extract data into ```ShapeNet``` directory, the file structure in ```ShapeNet``` should be like this:
-```
-ShapeNet/
-    |
-    |----ShapeNetRendering/
-    |
-    |----ShapeNetVox32/
-    |
-```
-
-- Change some parameters. You can change parameters in ```experiments/scripts/res_gru_net.sh``` or ```lib/config.py```
-
-- Run.
 ```bash
-bash experiments/scripts/res_gru_net.sh
+python calculate_volume.py
 ```
-
-## License
-MIT License

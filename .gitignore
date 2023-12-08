@@ -11,6 +11,8 @@ wiki/
 # Results
 output/
 projections*
+*.pt
+*/*.pt
 
 # other hidden files
 *.pylintrc
