@@ -11,3 +11,8 @@ wiki/
 # Results
 output/
 projections*
+
+# other hidden files
+.pylintrc
+.style.yapf
+.theanorc
