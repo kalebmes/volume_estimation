@@ -13,6 +13,6 @@ output/
 projections*
 
 # other hidden files
-.pylintrc
-.style.yapf
-.theanorc
+*.pylintrc
+*.style.yapf
+*.theanorc
