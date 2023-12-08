@@ -3,7 +3,7 @@
 - This pipeline performs the volume estimation in 3 steps: segmentation ⇒ 3D reconstruction ⇒ volume estimation
     - Segmentation: [YOLOv5](https://github.com/ultralytics/yolov5)
     - 3D reconstruction: [3DR2-N2 Official Version](https://github.com/chrischoy/3D-R2N2) and [3DR2-N2 PyTorch Version](https://github.com/heromanba/3D-R2N2-PyTorch)
-    - Volume Calculation: (https://github.com/mikedh/trimesh)[Trimesh]
+    - Volume Calculation: [Trimesh](https://github.com/mikedh/trimesh)
 
 ## Installation
 You can follow the instruction below to install the virtual environment.
@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ## Segmentation
 
 ### Running YOLOv5 instance segmentation
-- First please download the pretrained model `obj_seg.pt` from this Link and store it under `yolov5_det/` directory. For more information, please visit the official README.md for yolov5, under the `yolov5_det/` directory
+- First please download the pretrained model `obj_seg.pt` from this Link (Todo) and store it under `yolov5_det/` directory. For more information, please visit the official README.md for yolov5, under the `yolov5_det/` directory.
 
 - Navigate to the `yolov5_det/` directory
 
@@ -51,6 +51,7 @@ python crop_image_yolov5_bb.py
 
 ## 3D Reconstruction
 - Please download pretrained model(ResidualGRUNet), and put ```checkpoint.pth``` under ```output/ResidualGRUNet/default_model```.
+- Todo: Fix the Google drive link here
 
     Google drive link(https://drive.google.com/open?id=1LtNhuUQdAeAyIUiuCavofBpjw26Ag6DP)
 
@@ -66,3 +67,6 @@ python 3D_recon_script.py
 ```bash
 python calculate_volume.py
 ```
+
+## Todo
+Replicate the Code
