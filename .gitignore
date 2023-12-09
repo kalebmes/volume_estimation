@@ -14,6 +14,7 @@ projections*
 *.pt
 */*.pt
 yolov5_detect/runs/
+# all csv files
 *.csv
 
 # other hidden files
