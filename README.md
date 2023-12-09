@@ -42,7 +42,7 @@ python segment/predict.py --source dataset_directory/ --weights obj_seg_director
 
 ### Cropping the desired objects
 
-- Run the following python file. Please make sure to specify the original directory of the objects, which was denoted as `dataset_directory/` previously, and the output of the segmented objects directory and the desired save path
+- Navigate back to the parent directory and run the following python file. Please make sure to specify the original directory of the objects, which was denoted as `dataset_directory/` previously, and the output of the segmented objects directory and the desired save path
 
 ```bash
 python crop_image_yolov5_bb.py 
