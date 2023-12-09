@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ## Segmentation
 
 ### Running YOLOv5 instance segmentation
-- First please download the pretrained model `obj_seg.pt` from this Link (Todo) and store it under `yolov5_det/` directory. For more information, please visit the official README.md of the [YOLOv5 Repository](https://github.com/ultralytics/yolov5)
+- First please download the pretrained model `obj_seg.pt` from this [Link](https://drive.google.com/drive/folders/1R1rdhjcNNV0rymtZg2XmF7hm-TU3sUhk?usp=sharing) and store it under `yolov5_det/` directory. For more information, please visit the official README.md of the [YOLOv5 Repository](https://github.com/ultralytics/yolov5)
 
 - Navigate to the `yolov5_det/` directory
 
@@ -53,8 +53,7 @@ python crop_objects_with_boxes.py
 
 
 ## 3D Reconstruction
-- Please download pretrained model(ResidualGRUNet), and put ```checkpoint.pth``` under ```output/ResidualGRUNet/default_model```.
-- Todo: Add the Google drive link here
+- Please download pretrained model(ResidualGRUNet), and put ```checkpoint.pth``` under ```output/ResidualGRUNet/default_model``` from this [Link](https://drive.google.com/drive/folders/1R1rdhjcNNV0rymtZg2XmF7hm-TU3sUhk?usp=sharing)
 
 - Run the following command. Please make sure to specify the folder of the cropped images, and the output directory of the saved projections
 
@@ -69,5 +68,3 @@ python 3D_recon_script.py
 python calculate_volume.py
 ```
 
-## Todo
-Replicate the Code
