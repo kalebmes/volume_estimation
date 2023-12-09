@@ -3,13 +3,13 @@ import os
 import pandas as pd
 import numpy as np
 
-folders_path = '/root/Wegnal/Segmentation/55_dummies_labeled_cropped_bb'
+folders_path = '/root/Wegnal/Segmentation/100dummies_labeled_cropped_bb'
 parent_folder_name = folders_path.split('/')[-1].replace('_cropped_bb', '')
 
-projections_path = f'/root/Wegnal/3D-R2N2-PyTorch/projections_{parent_folder_name}'
+projections_path = f'/root/volume_estimation/projections_{parent_folder_name}'
 # df = pd.DataFrame(columns=['ground_truth_volume', 'volume (units)', 'real_world_volume (liters)'])
 # db_directory = '/root/Wegnal/WEGNAL_DB_STRUCTURE_v0.9 (1).xlsx'
-db_directory = '/root/Wegnal/3D-R2N2-PyTorch/0.actual volume_michael.csv'
+db_directory = '/root/volume_estimation/actual_volumes.csv'
 # db_vols = pd.read_excel(db_directory, sheet_name='DB_2023MAY', engine='openpyxl', index_col=0)
 db_vols = pd.read_csv(db_directory)
 
@@ -37,14 +37,14 @@ for proj in os.listdir(projections_path):
     if not mesh.is_watertight:
         print("The mesh is not watertight, so the volume calculation may not be accurate.")
     
-    scale_factor = 0.5 * 1e7
+    scale_factor = 1 * 1e7
     total_voxel_volume = mesh.volume# in cubic units
     file_name = proj.split('.obj')[0].split('projection_')[1]
     ground_truth_volume = db_dict[file_name]
 
-    volume_cubic_milimeters = total_voxel_volume * scale_factor + np.random.normal(0, 1) + np.random.randint(0, 3)
+    volume_cubic_milimeters = total_voxel_volume * scale_factor
     #accuracy is {1 - |1-estimated_volume/ground_truth|}*100
-    accuracy = abs(1 - abs(1 - volume_cubic_milimeters/ground_truth_volume)) * 100
+    accuracy = 1 - abs(1 - volume_cubic_milimeters/ground_truth_volume) * 100
     diff = abs(ground_truth_volume - volume_cubic_milimeters)
     # accuracy = (1 - abs(total_voxel_volume - ground_truth_volume) / ground_truth_volume) * 100
 
@@ -54,7 +54,7 @@ for proj in os.listdir(projections_path):
           'ground_truth_volume', ground_truth_volume, 
           # 'calculated volume ', total_voxel_volume,
         #   'scale_factor', scale_factor,)
-          'real world volume', volume_cubic_milimeters,
+          'estimated volume', volume_cubic_milimeters,
           'accuracy', accuracy)
 
     ground_truths.append(ground_truth_volume)
@@ -76,5 +76,5 @@ df['ea'] = eas
 print('average accuracy', np.mean(accuracies))
 print('average_each_acc', 1 - abs(1 - np.mean(real_worl_vols) / np.mean(ground_truths)))
 # print('average scale factor', np.mean(scale_factors))
-df.to_csv('volumes_predicted_55obj.csv', index=False)
+df.to_csv('volumes_predicted_100obj.csv', index=False)
 print('average diff', np.mean(diffs))
