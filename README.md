@@ -39,7 +39,7 @@ python segment/predict.py --source dataset_directory/ --weights obj_seg_director
 ```
 
 - the results are stored under the `runs/` directory. Please take a note of the output path and proceed to the cropping stage.
-![demo_result](https://github.com/kalebmes/volume_estimation/assets/77890934/c77736bf-1bbf-4d44-b10c-03133ffc326e)
+![demo](https://github.com/kalebmes/volume_estimation/imgs/detected_demo.jpg)
 
 
 ### Cropping the desired objects
@@ -49,7 +49,7 @@ python segment/predict.py --source dataset_directory/ --weights obj_seg_director
 ```bash
 python crop_image_yolov5_bb.py 
 ```
-![cropped](https://github.com/kalebmes/volume_estimation/assets/77890934/c1572d47-29ac-4e3b-8f05-64b1116b29e6)
+![cropped](https://github.com/kalebmes/volume_estimation/imgs/cropped_demo.jpg)
 
 
 ## 3D Reconstruction
