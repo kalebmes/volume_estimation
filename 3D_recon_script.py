@@ -1,5 +1,5 @@
 import os
-
+ 
 folders_path = '/root/Wegnal/Segmentation/100dummies_labeled_cropped_bb'
 parent_folder_name = folders_path.split('/')[-1].replace('_cropped_bb', '')
 for folder in os.listdir(folders_path):
