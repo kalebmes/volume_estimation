@@ -60,10 +60,10 @@ def crop_segmented_region(txt_file_path, image_path, save_path, expansion_factor
         print('Saved the cropped image under the path:', os.path.join(save_path, f'segmented_{image_name}_{i}.jpg'))
         
 
-folder_path = '/root/yolov5/runs/predict-seg/exp3'
-original_folder = '/root/Wegnal/Segmentation/55_dummies_labeled'
+folder_path = '/root/volume_estimation/yolov5_detect/runs/predict-seg/exp2'
+original_folder = '/root/Wegnal/Segmentation/100dummies_labeled'
 # save_path = '/root/Wegnal/Segmentation/폐기물더미이미지zip_cropped'
-save_path = '/root/Wegnal/Segmentation/55_dummies_labeled_cropped_bb'
+save_path = '/root/Wegnal/Segmentation/100dummies_labeled_cropped_bb'
 # video_name = 'KakaoTalk_20230308_174212496'
 # save_path = f'/root/Wegnal/Segmentation/{video_name}_cropped'
 
@@ -95,10 +95,10 @@ print('grouping pics of similar objects into one folder')
 for image in os.listdir(save_path):
     
     folder_name = image.split()[0]
-    folder_path = os.path.join(cropped_pics_path, folder_name)
+    folder_path = os.path.join(save_path, folder_name)
     os.makedirs(folder_path, exist_ok=True)
     
-    shutil.move(os.path.join(cropped_pics_path, image), os.path.join(folder_path, image))
+    shutil.move(os.path.join(save_path, image), os.path.join(folder_path, image))
     # and then rename the moved images to 0.jpg, 1.jpg, 2.jpg, ...
     for i, image in enumerate(os.listdir(folder_path)):
         os.rename(os.path.join(folder_path, image), os.path.join(folder_path, f'{i}.jpg'))

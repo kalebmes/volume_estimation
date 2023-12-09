@@ -13,6 +13,7 @@ output/
 projections*
 *.pt
 */*.pt
+yolov5_detect/runs/
 
 # other hidden files
 *.pylintrc
