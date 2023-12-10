@@ -37,14 +37,14 @@ for proj in os.listdir(projections_path):
     if not mesh.is_watertight:
         print("The mesh is not watertight, so the volume calculation may not be accurate.")
     
-    scale_factor = 1 * 1e7
+    scale_factor = 0.5 * 1e7
     total_voxel_volume = mesh.volume# in cubic units
     file_name = proj.split('.obj')[0].split('projection_')[1]
     ground_truth_volume = db_dict[file_name]
 
     volume_cubic_milimeters = total_voxel_volume * scale_factor
     #accuracy is {1 - |1-estimated_volume/ground_truth|}*100
-    accuracy = 1 - abs(1 - volume_cubic_milimeters/ground_truth_volume) * 100
+    accuracy = (1 - abs(1 - volume_cubic_milimeters/ground_truth_volume)) * 100
     diff = abs(ground_truth_volume - volume_cubic_milimeters)
     # accuracy = (1 - abs(total_voxel_volume - ground_truth_volume) / ground_truth_volume) * 100
 
